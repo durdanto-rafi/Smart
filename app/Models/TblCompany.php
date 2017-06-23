@@ -16,7 +16,7 @@ class TblCompany extends Model
 	public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'name', 'company_number'
     ];
 
     protected $guarded = [];

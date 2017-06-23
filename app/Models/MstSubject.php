@@ -16,7 +16,7 @@ class MstSubject extends Model
 	public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'name', 'subject_number'
     ];
 
     protected $guarded = [];

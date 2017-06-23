@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('error', ['as'=>'error','uses'=>'DashboardController@pageNotFound']);
+Route::get('logout', ['as'=>'logout','uses'=>'DashboardController@logout']);
+
+Route::resource('company','CompanyController');
+Route::resource('subject','SubjectController');
+Route::resource('grade','GradeController');

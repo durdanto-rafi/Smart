@@ -16,7 +16,7 @@ class MstGrade extends Model
 	public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'name','grade_number'
     ];
 
     protected $guarded = [];
