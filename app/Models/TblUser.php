@@ -20,6 +20,7 @@ class TblUser extends Model
         'name',
         'flg_multi_login',
         'company_number',
+        'id',
         'password',
         'enable',
         'contract_start_day',

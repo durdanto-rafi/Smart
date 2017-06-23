@@ -22,7 +22,6 @@
 </div>
 @endif {!! Form::open(array('route' => 'user.store','method'=>'POST')) !!}
 <div class="row">
-
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name</strong> 
@@ -81,7 +80,7 @@
             <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </div>
-            <input type="text" class="form-control pull-right datepicker">
+            {!! Form::text('contract_start_day', null, array('placeholder' => 'Contract Start Date', 'class' => 'form-control pull-right datepicker', 'id'=>'txtStartDate')) !!}
         </div>
         <!-- /.input group -->
         </div>
@@ -94,7 +93,7 @@
             <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </div>
-            <input type="text" class="form-control pull-right datepicker">
+            {!! Form::text('contract_period_day', null, array('placeholder' => 'Contract Period Date', 'class' => 'form-control pull-right datepicker', 'id'=>'txtPeriodDate')) !!}
         </div>
         <!-- /.input group -->
         </div>
@@ -109,7 +108,6 @@
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         {{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
     </div>
-
 </div>
 {!! Form::close() !!} @endsection
 
