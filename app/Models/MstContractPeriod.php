@@ -16,7 +16,7 @@ class MstContractPeriod extends Model
 	public $timestamps = false;
 
     protected $fillable = [
-        'contract_period_name'
+        'contract_period_name', 'contract_period_number'
     ];
 
     protected $guarded = [];

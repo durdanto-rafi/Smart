@@ -19,3 +19,4 @@ Route::get('logout', ['as'=>'logout','uses'=>'DashboardController@logout']);
 Route::resource('company','CompanyController');
 Route::resource('subject','SubjectController');
 Route::resource('grade','GradeController');
+Route::resource('contractPeriod','ContractPeriodController');
