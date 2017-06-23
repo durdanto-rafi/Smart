@@ -16,10 +16,9 @@ class TblUser extends Model
 	public $timestamps = false;
 
     protected $fillable = [
+        'user_number',
         'name',
         'flg_multi_login',
-        'access_code1',
-        'access_code2',
         'company_number',
         'password',
         'enable',

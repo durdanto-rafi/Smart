@@ -20,3 +20,6 @@ Route::resource('company','CompanyController');
 Route::resource('subject','SubjectController');
 Route::resource('grade','GradeController');
 Route::resource('contractPeriod','ContractPeriodController');
+Route::resource('user','UserController');
+
+Route::post('checkUser', ['as'=>'checkUser','uses'=>'UserController@checkUser']);

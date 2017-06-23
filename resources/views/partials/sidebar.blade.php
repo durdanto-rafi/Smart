@@ -26,9 +26,16 @@
                 </span>
                 </a>
             </li>
-             <li class="treeview {{ Request::is('contractPeriod') ? 'active' : '' }}">
+            <li class="treeview {{ Request::is('contractPeriod') ? 'active' : '' }}">
                 <a href="{{ route('contractPeriod.index') }}">
                     <i i class="fa fa-check-square-o"></i> <span>Contract Period</span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
+            <li class="treeview {{ Request::is('user') ? 'active' : '' }}">
+                <a href="{{ route('user.index') }}">
+                    <i i class="fa fa-check-square-o"></i> <span>User</span>
                     <span class="pull-right-container">
                 </span>
                 </a>
