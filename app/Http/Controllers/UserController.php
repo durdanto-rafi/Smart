@@ -70,7 +70,8 @@ class UserController extends Controller
      */
     public function show($user_number)
     {
-        $user = TblUser::find($user_number);
+        $user = TblUser::with('company')->find($user_number);
+        //dd($user);
         return view('user.show',compact('user'));
     }
 

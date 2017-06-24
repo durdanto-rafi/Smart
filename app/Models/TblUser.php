@@ -29,5 +29,9 @@ class TblUser extends Model
 
     protected $guarded = [];
 
+    public function company() {
+        return $this->belongsTo(TblCompany::class, 'company_number', 'company_number');
+    }
+
         
 }
