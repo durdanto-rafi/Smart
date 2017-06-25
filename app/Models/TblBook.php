@@ -16,6 +16,7 @@ class TblBook extends Model
 	public $timestamps = false;
 
     protected $fillable = [
+        'book_number',
         'name',
         'image_pass',
         'subject_number',

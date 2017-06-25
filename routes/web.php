@@ -23,3 +23,5 @@ Route::resource('contractPeriod','ContractPeriodController');
 Route::resource('user','UserController');
 
 Route::post('checkUser', ['as'=>'checkUser','uses'=>'UserController@checkUser']);
+
+Route::resource('book','BookController');

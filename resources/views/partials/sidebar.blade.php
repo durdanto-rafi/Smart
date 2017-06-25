@@ -40,6 +40,13 @@
                 </span>
                 </a>
             </li>
+            <li class="treeview {{ Request::is('book') ? 'active' : '' }}">
+                <a href="{{ route('book.index') }}">
+                    <i i class="fa fa-check-square-o"></i> <span>Book</span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->
