@@ -205,4 +205,33 @@ class UserController extends Controller
             return view('error.index', compact('message'))->with('message', $message);
         } 
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $user_number
+     * @return \Illuminate\Http\Response
+     */
+    public function postUsersBooks(Request $request)
+    {
+        $this->validate($request, [
+            'user_number' => 'required',
+            'result' => 'required',
+        ]);
+        
+        CntBooksUser::where('user_number', $request->user_number)->delete();
+        $cntBooksUsers = [];
+        foreach($request->result as $key => $value)
+        {
+            $cntBooksUsers[] = array(
+                'user_number' => $request->user_number,
+                'book_number' => $key
+            );
+        };
+
+        CntBooksUser::insert($cntBooksUsers);
+
+        $users = TblUser::where("enable", true)->pluck("name", "user_number")->all();
+        return view('user.usersBook', compact('users'))->with('success','User wise books updated successfully');;
+    }
 }
