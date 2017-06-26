@@ -33,7 +33,7 @@
             <tr>
                 <th>No</th>
                 <th>Book Name</th>
-                <th>Action</th>
+                <th> <input type="button" name="sub" value="check all" id='custom_button'/>Select All</th>
             </tr>
         </thead>
         <tbody id="tblBooks">
@@ -65,12 +65,18 @@
                     row.push("<tr>");
                     row.push("<td>" + (i + 1) + "</td>");          
                     row.push("<td>" + cntBooksUser.name + "</td>");
-                    row.push("<td> <label class='input-toggle'> <input type='checkbox' name='result[" + cntBooksUser.book_number + "]'" + ( cntBooksUser.user_number == null ? '' : 'checked') + " />  <span></span> </label> </td>");
+                    row.push("<td> <label class='input-toggle'> <input type='checkbox' class='g' name='result[" + cntBooksUser.book_number + "]'" + ( cntBooksUser.user_number == null ? '' : 'checked') + " />  <span></span> </label> </td>");
                     row.push("</tr>");
                 });
                 $('#tblBooks').html(row.join(""));
             }
         });
     });
+
+    jQuery('#custom_button').click(function(){
+        jQuery('.g').each(function() { //loop through each checkbox
+            this.checked = true; //deselect all checkboxes with class "checkbox1"     
+        }); 
+    }); 
 </script>
 @stop
