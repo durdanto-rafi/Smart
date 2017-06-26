@@ -122,12 +122,15 @@
 <script type="text/javascript">
     //Date picker
     $('.datepicker').datepicker({
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
     // Password Checker
     $('#txtPassword, #txtConfirmPassword').on('keyup', function () {
-        if ($('#txtPassword').val() == $('#txtConfirmPassword').val()) {
+        if ($('#txtPassword').val().length < 6 || $('#txtConfirmPassword').val().length < 6){
+            $('#lblMessage').html('Password need to be atleast 6 digit').css('color', 'red');
+        }else if ($('#txtPassword').val() == $('#txtConfirmPassword').val()) {
             $('#lblMessage').html('Password and Retype password matched').css('color', 'green');
         } else{
             $('#lblMessage').html('Password and Retype password do not match').css('color', 'red');

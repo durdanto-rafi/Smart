@@ -80,7 +80,7 @@
             <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </div>
-            {!! Form::text('contract_start_day', null, array('placeholder' => 'Contract Start Date', 'class' => 'form-control pull-right datepicker', 'id'=>'txtStartDate')) !!}
+            {!! Form::text('contract_start_day', null, array('placeholder' => 'Contract Start Date', 'class' => 'form-control pull-right datepicker', 'id'=>'txtStartDate', 'onkeypress'=>'return false;')) !!}
         </div>
         <!-- /.input group -->
         </div>
@@ -93,7 +93,7 @@
             <div class="input-group-addon">
                 <i class="fa fa-calendar"></i>
             </div>
-            {!! Form::text('contract_period_day', null, array('placeholder' => 'Contract Period Date', 'class' => 'form-control pull-right datepicker', 'id'=>'txtPeriodDate')) !!}
+            {!! Form::text('contract_period_day', null, array('placeholder' => 'Contract Period Date', 'class' => 'form-control pull-right datepicker', 'id'=>'txtPeriodDate', 'onkeypress'=>'return false;')) !!}
         </div>
         <!-- /.input group -->
         </div>
@@ -115,12 +115,15 @@
 <script type="text/javascript">
     //Date picker
     $('.datepicker').datepicker({
-        autoclose: true
+        autoclose: true,
+        format: 'yyyy-mm-dd'
     });
 
     // Password Checker
     $('#txtPassword, #txtConfirmPassword').on('keyup', function () {
-        if ($('#txtPassword').val() == $('#txtConfirmPassword').val()) {
+        if ($('#txtPassword').val().length < 6 || $('#txtConfirmPassword').val().length < 6){
+            $('#lblMessage').html('Password need to be atleast 6 digit').css('color', 'red');
+        }else if ($('#txtPassword').val() == $('#txtConfirmPassword').val()) {
             $('#lblMessage').html('Password and Retype password matched').css('color', 'green');
         } else{
             $('#lblMessage').html('Password and Retype password do not match').css('color', 'red');
@@ -136,7 +139,7 @@
             type:"post",
             dataType: "json",
             url :"{{ route('checkUser') }}",
-            data: {username: username, _token:token},
+            data: {id: username, _token:token},
                 success:function(data){
                 if(data.status == true){
                     $('#lblMessage').html('Sorry, Username already exists !').css('color', 'red');

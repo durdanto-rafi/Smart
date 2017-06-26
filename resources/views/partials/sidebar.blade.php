@@ -47,6 +47,13 @@
                 </span>
                 </a>
             </li>
+            <li class="treeview {{ Request::is('usersBook') ? 'active' : '' }}">
+                <a href="{{ route('usersBook') }}">
+                    <i i class="fa fa-check-square-o"></i> <span>User wise Book</span>
+                    <span class="pull-right-container">
+                </span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

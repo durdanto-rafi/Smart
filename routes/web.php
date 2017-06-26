@@ -23,5 +23,7 @@ Route::resource('contractPeriod','ContractPeriodController');
 Route::resource('user','UserController');
 
 Route::post('checkUser', ['as'=>'checkUser','uses'=>'UserController@checkUser']);
-
 Route::resource('book','BookController');
+Route::get('usersBook', ['as'=>'usersBook','uses'=>'UserController@usersBook']);
+Route::post('getUsersBooks', ['as'=>'getUsersBooks','uses'=>'UserController@getUsersBooks']);
+Route::post('postUsersBooks', ['as'=>'postUsersBooks','uses'=>'UserController@postUsersBooks']);

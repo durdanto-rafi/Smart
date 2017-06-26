@@ -31,7 +31,5 @@ class TblUser extends Model
 
     public function company() {
         return $this->belongsTo(TblCompany::class, 'company_number', 'company_number');
-    }
-
-        
+    }        
 }

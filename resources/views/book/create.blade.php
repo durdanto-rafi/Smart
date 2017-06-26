@@ -25,57 +25,103 @@
         </div>
     @endif
 
-    {!! Form::open(array('route' => 'book.store','method'=>'POST')) !!}
-    <div class="row">
+    <form action="{{ route('book.store') }}" enctype="multipart/form-data" method="POST">
+        <div class="alert alert-danger print-error-msg" style="display:none">
+            <ul></ul>
+        </div>
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <div class="row">
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Name:</strong>
+                    {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                </div>
             </div>
-        </div>
 
-         <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="form-group">
-                <strong>Subject</strong> 
-                {!! Form::select('subject_number', [''=>'--- Select ---'] + $subjects, null, ['class'=>'form-control']) !!}
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <strong>Subject</strong> 
+                    {!! Form::select('subject_number', [''=>'--- Select ---'] + $subjects, null, ['class'=>'form-control']) !!}
+                </div>
             </div>
-        </div>
 
-        <div class="col-xs-6 col-sm-6 col-md-6">
-            <div class="form-group">
-                <strong>Grade</strong> 
-                {!! Form::select('grade_number', [''=>'--- Select ---'] + $grades, null, ['class'=>'form-control']) !!}
+            <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                    <strong>Grade</strong> 
+                    {!! Form::select('grade_number', [''=>'--- Select ---'] + $grades, null, ['class'=>'form-control']) !!}
+                </div>
             </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Book Url</strong>
-                {!! Form::text('book_url', null, array('placeholder' => 'Book Url','class' => 'form-control')) !!}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Book Url</strong>
+                    {!! Form::text('book_url', null, array('placeholder' => 'Book Url','class' => 'form-control')) !!}
+                </div>
             </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Vertical Index</strong>
-                {!! Form::text('vertical_index', null, array('placeholder' => 'Vertical Index','class' => 'form-control', 'onkeypress'=>'return numberValidate(event);')) !!}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Vertical Index</strong>
+                    {!! Form::text('vertical_index', null, array('placeholder' => 'Vertical Index','class' => 'form-control', 'onkeypress'=>'return numberValidate(event);')) !!}
+                </div>
             </div>
-        </div>
 
-         <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                {{Form::label('image_pass', 'Image Pass', ['class' => 'control-label'])}}
-                {{Form::file('image_pass')}}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    {{Form::label('image_pass', 'Image Pass', ['class' => 'control-label'])}}
+                    {{Form::file('image_pass')}}
+                </div>
             </div>
-        </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            {{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
-        </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <label>Image:</label>
+                    <input type="file" name="image" class="control-label">
+                </div>
+            </div>
 
-    </div>
-    {!! Form::close() !!}
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <button class="btn btn-success upload-image" type="submit">Upload Image</button>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <div class="form-group">
+                    {{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
+                </div>
+            </div>
+
+
+        </div>
+    </form>
 
 @endsection
 
+@section('script') @parent
+<script type="text/javascript">
+    $("body").on("click",".upload-image",function(e){
+        $(this).parents("form").ajaxForm(options);
+    });
+
+    var options = { 
+        complete: function(response) {
+            if($.isEmptyObject(response.responseJSON.error)){
+                $("input[name='title']").val('');
+                alert('Image Upload Successfully.');
+            }else{
+                printErrorMsg(response.responseJSON.error);
+            }
+        }
+    };
+
+    function printErrorMsg (msg) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display','block');
+        $.each( msg, function( key, value ) {
+            $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
+        });
+    }
+</script>
+@stop

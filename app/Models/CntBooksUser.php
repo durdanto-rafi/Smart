@@ -20,5 +20,12 @@ class CntBooksUser extends Model
 
     protected $guarded = [];
 
+    public function user() {
+        return $this->belongsTo(TblUser::class, 'user_number', 'user_number');
+    }
+
+    public function book() {
+        return $this->belongsTo(TblBook::class, 'book_number', 'book_number');
+    }
         
 }

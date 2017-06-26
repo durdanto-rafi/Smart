@@ -108,6 +108,8 @@
     <script src="{{ asset('/js/sweetalert-dev.js') }}"></script>
     <!-- Custom -->
     <script src="{{ asset('/js/custom.js') }}"></script>
+    <!-- jQuery Form -->
+    <script src="{{ asset('/js/jquery.form.js') }}"></script>
 @show
 </html>
 
