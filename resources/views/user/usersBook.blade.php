@@ -1,18 +1,8 @@
 @extends('layouts.app')
-@section('title', 'Create New user')
+@section('title', 'User wise Book')
  
 @section('content')
 
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-                <h2>Users</h2>
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('user.create') }}"> Create New user</a>
-            </div>
-        </div>
-    </div>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -33,7 +23,9 @@
             <tr>
                 <th>No</th>
                 <th>Book Name</th>
-                <th> <input type="button" name="sub" value="check all" id='custom_button'/>Select All</th>
+                <th>
+                    <label class="input-toggle">{{ Form::checkbox('sub', 0, null, ['class'=>'form-control', 'id'=>'chkSelectAll']) }}<span></span></label> Select All
+                </th>
             </tr>
         </thead>
         <tbody id="tblBooks">
@@ -65,7 +57,7 @@
                     row.push("<tr>");
                     row.push("<td>" + (i + 1) + "</td>");          
                     row.push("<td>" + cntBooksUser.name + "</td>");
-                    row.push("<td> <label class='input-toggle'> <input type='checkbox' class='g' name='result[" + cntBooksUser.book_number + "]'" + ( cntBooksUser.user_number == null ? '' : 'checked') + " />  <span></span> </label> </td>");
+                    row.push("<td> <label class='input-toggle'> <input type='checkbox' class='permission' value='" + cntBooksUser.book_number + "' name='result[]'" + ( cntBooksUser.user_number == null ? '' : 'checked') + " />  <span></span> </label> </td>");
                     row.push("</tr>");
                 });
                 $('#tblBooks').html(row.join(""));
@@ -73,9 +65,17 @@
         });
     });
 
-    jQuery('#custom_button').click(function(){
-        jQuery('.g').each(function() { //loop through each checkbox
-            this.checked = true; //deselect all checkboxes with class "checkbox1"     
+    // Select & Deselect all permission
+    jQuery('#chkSelectAll').click(function(){
+        var flag = false;
+        if(this.checked == true){
+            flag = true;
+        }
+        else{
+            flag = false;
+        }
+        jQuery('.permission').each(function() {
+            this.checked = flag;   
         }); 
     }); 
 </script>

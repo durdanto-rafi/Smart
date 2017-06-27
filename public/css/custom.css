@@ -8,8 +8,8 @@ label.input-toggle {
 label.input-toggle>span {
   display: inline-block;
   position: relative;
-  background-image: -webkit-linear-gradient(left, #848484 0%, #848484 50%, #CD5C5C 50%, #CD5C5C 100%);
-  background-image: linear-gradient(to right, #848484 0%, #848484 50%, #CD5C5C 50%, #CD5C5C 100%);
+  background-image: -webkit-linear-gradient(left, #848484 0%, #848484 50%, #32CD32 50%, #32CD32 100%);
+  background-image: linear-gradient(to right, #848484 0%, #848484 50%, #32CD32 50%, #32CD32 100%);
   background-size: 64px 14px;
   background-position: 0%;
   border-radius: 32px;
@@ -48,7 +48,7 @@ label.input-toggle>span:after {
 
 label.input-toggle>input:checked+span:after {
   left: calc(100% - 18px);
-  background-color: #FF0000;
+  background-color: #228B22;
 }
 
 label.input-toggle>span:active:after {

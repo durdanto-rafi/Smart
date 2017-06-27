@@ -187,7 +187,7 @@ class UserController extends Controller
         { 
             if($request->ajax())
             {
-                $cntBooksUsers = $cards = DB::select("  SELECT a.book_number, a.name,  b.user_number
+                $cntBooksUsers = DB::select("  SELECT a.book_number, a.name,  b.user_number
                                                         FROM tbl_books a
                                                         LEFT join cnt_books_user b
                                                         ON a.book_number = b.book_number
@@ -225,12 +225,11 @@ class UserController extends Controller
         {
             $cntBooksUsers[] = array(
                 'user_number' => $request->user_number,
-                'book_number' => $key
+                'book_number' => $value
             );
         };
 
         CntBooksUser::insert($cntBooksUsers);
-
         $users = TblUser::where("enable", true)->pluck("name", "user_number")->all();
         return view('user.usersBook', compact('users'))->with('success','User wise books updated successfully');;
     }
