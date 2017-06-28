@@ -50,27 +50,6 @@ class bookController extends Controller
             'vertical_index' => 'required|numeric',
         ]);
 
-        if ($request->hasFile('image_pass')) 
-        {
-            if($request->file('image_pass')->isValid()) 
-            {
-                try 
-                {
-                    $file = $request->file('image_pass');
-                    $name = time() . '.' . $file->getClientOriginalExtension();
-
-                    $request->file('image_pass')->move("fotoupload", $name);
-                } catch (Illuminate\Filesystem\FileNotFoundException $e) 
-                {
-                    dd('error');
-                }
-            } 
-        }
-        else 
-        {
-            dd('No image was found');
-        }
-
         $book = TblBook::orderBy('book_number', 'desc')->first();
         TblBook::create(array_merge(['book_number' => $book->book_number == null ? 0 : ($book->book_number) + 1], $request->all()));
         return redirect()->route('book.index')->with('success','book created successfully');
@@ -86,7 +65,7 @@ class bookController extends Controller
      */
     public function show($book_number)
     {
-        $book = TblBook::find($book_number);
+        $book = TblBook::with('subject')->with('grade')->find($book_number);
         return view('book.show',compact('book'));
     }
 
@@ -99,7 +78,9 @@ class bookController extends Controller
     public function edit($book_number)
     {
         $book = TblBook::find($book_number);
-        return view('book.edit',compact('book'));
+        $subjects = MstSubject::pluck("name", "subject_number")->all();
+        $grades = MstGrade::pluck("name", "grade_number")->all();
+        return view('book.edit',compact('book'))->with('subjects', $subjects)->with('grades', $grades);
     }
 
     /**

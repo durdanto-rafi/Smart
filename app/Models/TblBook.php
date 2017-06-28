@@ -27,5 +27,11 @@ class TblBook extends Model
 
     protected $guarded = [];
 
-        
+    public function subject() {
+        return $this->belongsTo(MstSubject::class, 'subject_number', 'subject_number');
+    }
+
+    public function grade() {
+        return $this->belongsTo(MstGrade::class, 'grade_number', 'grade_number');
+    }  
 }

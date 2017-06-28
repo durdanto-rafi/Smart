@@ -51,17 +51,17 @@
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-11 col-sm-11 col-md-11">
         <div class="form-group">
             <strong>Password</strong> 
-            {{ Form::password('password', array('placeholder'=>'Password', 'class'=>'form-control', 'id'=>'txtPassword')) }}
+            {{ Form::text('password', null, array('placeholder'=>'Password', 'class'=>'form-control', 'id'=>'txtPassword', 'onkeypress'=>'return false;')) }}
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-1 col-sm-1 col-md-1">
         <div class="form-group">
-            <strong>Retype Password</strong> 
-            {{ Form::password('confirm_password', array('placeholder'=>'Retype Password', 'class'=>'form-control', 'id'=>'txtConfirmPassword' )) }}
+            <strong> &nbsp;</strong> 
+            {{ Form::button('New', array('class' => 'btn btn-primary', 'id'=>'btnNewPassword')) }}
         </div>
     </div>
 
@@ -120,7 +120,7 @@
     });
 
     // Password Checker
-    $('#txtPassword, #txtConfirmPassword').on('keyup', function () {
+    $('').on('keyup', function () {
         if ($('#txtPassword').val().length < 6 || $('#txtConfirmPassword').val().length < 6){
             $('#lblMessage').html('Password need to be atleast 6 digit').css('color', 'red');
         }else if ($('#txtPassword').val() == $('#txtConfirmPassword').val()) {
@@ -149,6 +149,26 @@
                     $('#lblMessage').html('Username available !').css('color', 'green');
                     check = 1;
                 }
+            }
+        });
+    });
+
+    // Generate password
+    $("#btnNewPassword").click(function(e) {
+        e.preventDefault();
+        var token = $("input[name='_token']").val();
+        $.ajax({
+            type:"post",
+            dataType: "json",
+            url :"{{ route('generatePassword') }}",
+            data: { 
+                _token:token
+            },
+            success: function(result) {
+                document.getElementById('txtPassword').value = result.password;
+            },
+            error: function(result) {
+                alert('error');
             }
         });
     });

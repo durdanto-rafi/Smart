@@ -27,3 +27,5 @@ Route::resource('book','BookController');
 Route::get('usersBook', ['as'=>'usersBook','uses'=>'UserController@usersBook']);
 Route::post('getUsersBooks', ['as'=>'getUsersBooks','uses'=>'UserController@getUsersBooks']);
 Route::post('postUsersBooks', ['as'=>'postUsersBooks','uses'=>'UserController@postUsersBooks']);
+Route::get('userListExcel/{type}', ['as'=>'userListExcel','uses'=>'UserController@userListExcel']);
+Route::post('generatePassword', ['as'=>'generatePassword','uses'=>'UserController@randomPassword']);

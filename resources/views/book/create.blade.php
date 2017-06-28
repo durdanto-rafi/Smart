@@ -26,16 +26,18 @@
     @endif
 
     <form action="{{ route('book.store') }}" enctype="multipart/form-data" method="POST">
-        <div class="alert alert-danger print-error-msg" style="display:none">
-            <ul></ul>
-        </div>
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
-
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Name:</strong>
                     {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Image Pass</strong>
+                    {!! Form::text('image_pass', null, array('placeholder' => 'Image Pass','class' => 'form-control')) !!}
                 </div>
             </div>
 
@@ -67,61 +69,12 @@
                 </div>
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    {{Form::label('image_pass', 'Image Pass', ['class' => 'control-label'])}}
-                    {{Form::file('image_pass')}}
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <label>Image:</label>
-                    <input type="file" name="image" class="control-label">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <button class="btn btn-success upload-image" type="submit">Upload Image</button>
-                </div>
-            </div>
-
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <div class="form-group">
                     {{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
                 </div>
             </div>
-
-
         </div>
     </form>
 
 @endsection
-
-@section('script') @parent
-<script type="text/javascript">
-    $("body").on("click",".upload-image",function(e){
-        $(this).parents("form").ajaxForm(options);
-    });
-
-    var options = { 
-        complete: function(response) {
-            if($.isEmptyObject(response.responseJSON.error)){
-                $("input[name='title']").val('');
-                alert('Image Upload Successfully.');
-            }else{
-                printErrorMsg(response.responseJSON.error);
-            }
-        }
-    };
-
-    function printErrorMsg (msg) {
-        $(".print-error-msg").find("ul").html('');
-        $(".print-error-msg").css('display','block');
-        $.each( msg, function( key, value ) {
-            $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
-        });
-    }
-</script>
-@stop

@@ -8,6 +8,7 @@ use App\Models\TblCompany;
 use DateTime;
 use App\Libraries\StringEncrypt;
 use App\Models\CntBooksUser;
+use Excel;
 
 class UserController extends Controller
 {
@@ -47,7 +48,6 @@ class UserController extends Controller
             'company_number' => 'required',
             'id' => 'required',
             'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password|min:6',
             'contract_start_day' => 'required|date',
             'contract_period_day' => 'required|date',
         ]);
@@ -92,6 +92,7 @@ class UserController extends Controller
         $companies = TblCompany::pluck("name", "company_number")->all();
         $user = TblUser::find($user_number);
         $user->id = $stringEncrypt->decrypt($user->id);
+        $user->password = $stringEncrypt->decrypt($user->password);
         return view('user.edit', compact('user'))->with('companies', $companies);;
     }
 
@@ -109,7 +110,6 @@ class UserController extends Controller
             'company_number' => 'required',
             'id' => 'required',
             'password' => 'required',
-            'confirm_password' => 'required',
             'contract_start_day' => 'required|date',
             'contract_period_day' => 'required|date',
         ]);
@@ -232,5 +232,41 @@ class UserController extends Controller
         CntBooksUser::insert($cntBooksUsers);
         $users = TblUser::where("enable", true)->pluck("name", "user_number")->all();
         return view('user.usersBook', compact('users'))->with('success','User wise books updated successfully');;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $user_number
+     * @return \Illuminate\Http\Response
+     */
+    public function userListExcel($type)
+	{   
+        dd(randomPassword());
+		$data = TblUser::all();
+		return Excel::create('itsolutionstuff_example', function($excel) use ($data) {
+			$excel->sheet('mySheet', function($sheet) use ($data)
+	        {
+				$sheet->fromArray($data);
+	        });
+		})->download($type);
+	}
+
+    /**
+     * Display the password.
+     *
+     * @return password
+     */
+    function randomPassword() {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return response([
+            'password'  => implode($pass)
+        ]);
     }
 }
