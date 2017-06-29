@@ -14,7 +14,6 @@
 
 
 Route::get('error', ['as'=>'error','uses'=>'DashboardController@pageNotFound']);
-Route::get('logout', ['as'=>'logout','uses'=>'DashboardController@logout']);
 
 Route::resource('company','CompanyController');
 Route::resource('subject','SubjectController');
@@ -29,3 +28,6 @@ Route::post('getUsersBooks', ['as'=>'getUsersBooks','uses'=>'UserController@getU
 Route::post('postUsersBooks', ['as'=>'postUsersBooks','uses'=>'UserController@postUsersBooks']);
 Route::get('userListExcel/{type}', ['as'=>'userListExcel','uses'=>'UserController@userListExcel']);
 Route::post('generatePassword', ['as'=>'generatePassword','uses'=>'UserController@randomPassword']);
+Auth::routes();
+
+Route::get('/', 'CompanyController@index');
